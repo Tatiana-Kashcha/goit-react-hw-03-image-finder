@@ -1,16 +1,27 @@
-export const App = () => {
-  return (
-    <div
-      style={{
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontSize: 40,
-        color: '#010101'
-      }}
-    >
-      React homework template
-    </div>
-  );
-};
+import { Component } from 'react';
+import Searchbar from 'components/Searchbar/Searchbar';
+
+class App extends Component {
+  state = {
+    isShowModal: false,
+    searchText: '',
+  };
+
+  showModal = () => {
+    this.setState({ isShowModal: true });
+  };
+
+  closeModal = () => {
+    this.setState({ isShowModal: false });
+  };
+
+  handleSearch = searchText => {
+    this.setState({ searchText });
+  };
+
+  render() {
+    return <></>;
+  }
+}
+
+export default App;
