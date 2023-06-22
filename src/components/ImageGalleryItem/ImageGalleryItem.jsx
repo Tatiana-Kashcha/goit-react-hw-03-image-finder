@@ -1,3 +1,5 @@
+import * as s from './ImageGalleryItem.styled';
+
 export const ImageGalleryItem = ({
   gallery: { id, webformatURL, largeImageURL },
 }) => {
