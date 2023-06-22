@@ -1,11 +1,9 @@
 import { Component } from 'react';
 import * as s from './Searchbar.styled';
-import { getImages } from 'components/getImages';
 
 class Searchbar extends Component {
   state = {
     value: '',
-    currentPage: 1,
   };
 
   handleChange = ({ target: { value } }) => {
@@ -14,10 +12,9 @@ class Searchbar extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    const { value, currentPage } = this.state;
+    const { value } = this.state;
 
     this.props.handleSearch(value.trim());
-    getImages(value.trim(), currentPage);
   };
 
   render() {
