@@ -8,12 +8,12 @@ async function getImages() {
     const response = await axios.get(BASE_URL, {
       params: {
         key: API_KEY,
-        q: searchText,
+        // q: searchText,
         image_type: 'photo',
         orientation: 'horizontal',
         safesearch: true,
         per_page: 12,
-        page: currentPage,
+        // page: currentPage,
       },
     });
     console.log(response); //для перевірки
