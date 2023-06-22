@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import * as s from './Searchbar.styled';
+import { getImages } from 'components/getImages';
 
 class Searchbar extends Component {
   state = {
@@ -17,6 +18,7 @@ class Searchbar extends Component {
 
   render() {
     const { value } = this.state;
+
     return (
       <s.Searchbar>
         <s.Form onSubmit={this.handleSubmit}>
@@ -26,8 +28,8 @@ class Searchbar extends Component {
 
           <s.Input
             type="text"
-            autocomplete="off"
-            autofocus
+            autoComplete="off"
+            autoFocus
             placeholder="Search images and photos"
             onChange={this.handleChange}
             value={value}

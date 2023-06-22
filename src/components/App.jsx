@@ -1,10 +1,12 @@
 import { Component } from 'react';
 import Searchbar from 'components/Searchbar/Searchbar';
+import { ImageGallery } from 'components/ImageGallery/ImageGallery';
 
 class App extends Component {
   state = {
-    isShowModal: false,
     searchText: '',
+    data: [],
+    isShowModal: false,
   };
 
   showModal = () => {
@@ -20,9 +22,11 @@ class App extends Component {
   };
 
   render() {
+    const { data } = this.state;
     return (
       <>
-        <Searchbar />
+        <Searchbar handleSearch={this.handleSearch} />
+        <ImageGallery data={data} />
       </>
     );
   }
