@@ -22,7 +22,7 @@ class App extends Component {
   render() {
     return (
       <>
-        <s.Searchbar />
+        <Searchbar />
       </>
     );
   }
