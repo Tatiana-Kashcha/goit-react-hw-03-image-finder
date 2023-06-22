@@ -2,6 +2,8 @@ import { Component } from 'react';
 import * as s from './Searchbar.styled';
 import { getImages } from 'components/getImages';
 
+let currentPage = 1;
+
 class Searchbar extends Component {
   state = {
     value: '',
@@ -14,6 +16,7 @@ class Searchbar extends Component {
   handleSubmit = e => {
     e.preventDefault();
     this.props.handleSearch(this.state.value);
+    getImages();
   };
 
   render() {
