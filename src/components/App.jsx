@@ -8,7 +8,7 @@ class App extends Component {
     searchText: '',
     data: [],
     currentPage: 1,
-    totalPage: 0,
+    // totalPage: 0,
     error: null,
     isShowModal: false,
     isLoading: false,
@@ -28,7 +28,7 @@ class App extends Component {
   }
 
   getImages = async () => {
-    const { searchText, currentPage, totalPage } = this.state;
+    const { searchText, currentPage } = this.state;
     try {
       const dataGallery = await getImagesApi(searchText, currentPage);
       if (currentPage > 1) {
@@ -40,12 +40,6 @@ class App extends Component {
           data: dataGallery.data.hits,
         });
       }
-      this.setState(prevState => ({
-        totalPage: Math.ceil(
-          dataGallery.data.totalHits / dataGallery.data.hits.length
-        ),
-      }));
-      console.log(totalPage);
     } catch (error) {
       this.setState({ error });
     } finally {
@@ -69,6 +63,10 @@ class App extends Component {
   render() {
     const { data } = this.state;
     console.log(data);
+
+    // const totalPage = Math.ceil(data.data.totalHits / data.data.hits.length);
+
+    // console.log(totalPage);
 
     return (
       <>
