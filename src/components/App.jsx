@@ -1,21 +1,56 @@
 import { Component } from 'react';
 import Searchbar from 'components/Searchbar/Searchbar';
 import { ImageGallery } from 'components/ImageGallery/ImageGallery';
-import { getImages } from 'components/getImages';
-
-const STATUS = {
-  IDLE: 'idle',
-  PENDING: 'pending',
-  REJECTED: 'rejected',
-  RESOLVED: 'resolved',
-};
+import { getImagesApi } from 'api/getImagesApi';
 
 class App extends Component {
   state = {
     searchText: '',
     data: [],
-    isShowModal: false,
     currentPage: 1,
+    totalPage: 0,
+    error: null,
+    isShowModal: false,
+    isLoading: false,
+  };
+
+  componentDidMount() {
+    this.setState({ isLoading: false });
+  }
+
+  componentDidUpdate(_, prevState) {
+    if (
+      prevState.searchText !== this.state.searchText ||
+      prevState.currentPage !== this.state.currentPage
+    ) {
+      this.getImages();
+    }
+  }
+
+  getImages = async () => {
+    const { searchText, currentPage, totalPage } = this.state;
+    try {
+      const dataGallery = await getImagesApi(searchText, currentPage);
+      if (currentPage > 1) {
+        this.setState(prevState => ({
+          data: [...prevState.data, ...dataGallery.data.hits],
+        }));
+      } else {
+        this.setState({
+          data: dataGallery.data.hits,
+        });
+      }
+      this.setState(prevState => ({
+        totalPage: Math.ceil(
+          dataGallery.data.totalHits / dataGallery.data.hits.length
+        ),
+      }));
+      console.log(totalPage);
+    } catch (error) {
+      this.setState({ error });
+    } finally {
+      this.setState({ isLoading: false });
+    }
   };
 
   showModal = () => {
@@ -28,15 +63,16 @@ class App extends Component {
 
   handleSearch = searchText => {
     this.setState({ searchText });
-    const { currentPage } = this.state;
-    getImages(searchText.trim(), currentPage);
+    console.log(searchText);
   };
 
   render() {
     const { data } = this.state;
+    console.log(data);
+
     return (
       <>
-        <Searchbar handleSearch={this.handleSearch} />
+        <Searchbar onSubmit={this.handleSearch} />
         <ImageGallery data={data} />
       </>
     );

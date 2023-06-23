@@ -18,7 +18,7 @@ class Searchbar extends Component {
       return;
     }
 
-    this.props.handleSearch(value.trim());
+    this.props.onSubmit(value.trim());
   };
 
   render() {
