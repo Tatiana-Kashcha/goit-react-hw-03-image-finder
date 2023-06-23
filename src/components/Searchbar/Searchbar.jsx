@@ -14,6 +14,10 @@ class Searchbar extends Component {
     e.preventDefault();
     const { value } = this.state;
 
+    if (value.trim() === '') {
+      return;
+    }
+
     this.props.handleSearch(value.trim());
   };
 

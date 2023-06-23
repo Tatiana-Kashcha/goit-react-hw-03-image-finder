@@ -3,6 +3,13 @@ import Searchbar from 'components/Searchbar/Searchbar';
 import { ImageGallery } from 'components/ImageGallery/ImageGallery';
 import { getImages } from 'components/getImages';
 
+const STATUS = {
+  IDLE: 'idle',
+  PENDING: 'pending',
+  REJECTED: 'rejected',
+  RESOLVED: 'resolved',
+};
+
 class App extends Component {
   state = {
     searchText: '',
