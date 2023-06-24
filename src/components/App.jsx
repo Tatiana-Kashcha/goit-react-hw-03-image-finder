@@ -12,7 +12,7 @@ class App extends Component {
     data: [],
     currentPage: 1,
     totalPage: 0,
-    perPage: 0,
+    // perPage: 0,
     error: null,
     isShowModal: false,
     isLoading: false,
@@ -47,6 +47,12 @@ class App extends Component {
         );
       }
 
+      this.setState({
+        totalPage: Math.ceil(
+          dataGallery.data.totalHits / dataGallery.data.hits.length
+        ),
+      });
+
       if (currentPage > 1) {
         this.setState(prevState => ({
           data: [...prevState.data, ...dataGallery.data.hits],
@@ -68,7 +74,6 @@ class App extends Component {
 
   handleSearch = searchText => {
     this.setState({ searchText });
-    console.log(searchText);
   };
 
   handleLoadMore = () => {
@@ -86,15 +91,16 @@ class App extends Component {
   };
 
   render() {
-    const { data, isLoading } = this.state;
+    const { data, isLoading, currentPage, totalPage } = this.state;
     console.log(data);
+    console.log(totalPage > currentPage);
 
     return (
       <>
         <Searchbar onSubmit={this.handleSearch} />
         {isLoading && Loading.arrows()}
         <ImageGallery data={data} />
-        <Button onLoadMore={this.handleLoadMore} />
+        {totalPage > currentPage && <Button onLoadMore={this.handleLoadMore} />}
       </>
     );
   }
