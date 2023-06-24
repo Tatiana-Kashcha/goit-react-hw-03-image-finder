@@ -23,3 +23,10 @@ export const Button = styled.button`
     background-color: #303f9f;
   }
 `;
+
+export const DivButton = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
+  margin-bottom: 16px;
+`;

@@ -89,10 +89,6 @@ class App extends Component {
     const { data, isLoading } = this.state;
     console.log(data);
 
-    // const totalPage = Math.ceil(data.data.totalHits / data.data.hits.length);
-
-    // console.log(totalPage);
-
     return (
       <>
         <Searchbar onSubmit={this.handleSearch} />
