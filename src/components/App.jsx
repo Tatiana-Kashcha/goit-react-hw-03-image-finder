@@ -65,17 +65,23 @@ class App extends Component {
     }
   };
 
+  handleSearch = searchText => {
+    this.setState({ searchText });
+    console.log(searchText);
+  };
+
+  handleLoadMore = () => {
+    this.setState(prevState => ({
+      currentPage: prevState.currentPage + 1,
+    }));
+  };
+
   showModal = () => {
     this.setState({ isShowModal: true });
   };
 
   closeModal = () => {
     this.setState({ isShowModal: false });
-  };
-
-  handleSearch = searchText => {
-    this.setState({ searchText });
-    console.log(searchText);
   };
 
   render() {
