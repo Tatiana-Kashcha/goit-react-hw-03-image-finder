@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import { Loading } from 'notiflix/build/notiflix-loading-aio';
 import Searchbar from 'components/Searchbar/Searchbar';
 import { ImageGallery } from 'components/ImageGallery/ImageGallery';
 import { getImagesApi } from 'api/getImagesApi';
@@ -26,6 +27,9 @@ class App extends Component {
       prevState.currentPage !== this.state.currentPage
     ) {
       this.getImages();
+      this.setState({
+        isLoading: true,
+      });
     }
   }
 
@@ -57,6 +61,7 @@ class App extends Component {
       Notify.failure('Oops, something went wrong! Try again later.');
     } finally {
       this.setState({ isLoading: false });
+      Loading.remove();
     }
   };
 
@@ -74,7 +79,7 @@ class App extends Component {
   };
 
   render() {
-    const { data } = this.state;
+    const { data, isLoading } = this.state;
     console.log(data);
 
     // const totalPage = Math.ceil(data.data.totalHits / data.data.hits.length);
@@ -84,6 +89,7 @@ class App extends Component {
     return (
       <>
         <Searchbar onSubmit={this.handleSearch} />
+        {isLoading && Loading.arrows()}
         <ImageGallery data={data} />
       </>
     );
