@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import * as s from './Searchbar.styled';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 class Searchbar extends Component {
   state = {
@@ -15,6 +16,7 @@ class Searchbar extends Component {
     const { value } = this.state;
 
     if (value.trim() === '') {
+      Notify.failure('Search images and photos!');
       return;
     }
 
