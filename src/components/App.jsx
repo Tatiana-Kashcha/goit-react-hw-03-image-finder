@@ -53,6 +53,7 @@ class App extends Component {
       }
     } catch (error) {
       this.setState({ error });
+      console.log(error);
       Notify.failure('Oops, something went wrong! Try again later.');
     } finally {
       this.setState({ isLoading: false });
