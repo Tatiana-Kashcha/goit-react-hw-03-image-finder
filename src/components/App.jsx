@@ -4,6 +4,7 @@ import { Loading } from 'notiflix/build/notiflix-loading-aio';
 import Searchbar from 'components/Searchbar/Searchbar';
 import { ImageGallery } from 'components/ImageGallery/ImageGallery';
 import { getImagesApi } from 'api/getImagesApi';
+import { Button } from 'components/Button/Button';
 
 class App extends Component {
   state = {
@@ -97,6 +98,7 @@ class App extends Component {
         <Searchbar onSubmit={this.handleSearch} />
         {isLoading && Loading.arrows()}
         <ImageGallery data={data} />
+        <Button onLoadMore={this.handleLoadMore} />
       </>
     );
   }
