@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import * as s from './Searchbar.styled';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import { ReactComponent as IconSearch } from '../icons/dandruff.svg';
 
 class Searchbar extends Component {
   state = {
@@ -30,6 +31,7 @@ class Searchbar extends Component {
       <s.Searchbar>
         <s.Form onSubmit={this.handleSubmit}>
           <button type="submit">
+            <IconSearch width="25" heigth="25" />
             <s.ButtonLabel>Search</s.ButtonLabel>
           </button>
 

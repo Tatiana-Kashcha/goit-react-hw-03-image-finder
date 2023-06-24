@@ -33,9 +33,6 @@ export const Form = styled.form`
     height: 48px;
     cursor: pointer;
     outline: none;
-    &:hover {
-      opacity: 1;
-    }
   }
 `;
 
