@@ -118,7 +118,7 @@ class App extends Component {
   };
 
   render() {
-    const { data, isLoading, currentPage, totalPage } = this.state;
+    const { data, isLoading, currentPage, totalPage, isShowModal } = this.state;
     console.log(this.state);
 
     return (
@@ -127,6 +127,9 @@ class App extends Component {
         {isLoading && Loading.arrows()}
         <ImageGallery data={data} />
         {totalPage > currentPage && <Button onLoadMore={this.handleLoadMore} />}
+        {isShowModal && (
+          <Modal closeModal={this.closeModal} currentImage={largeImageURL} />
+        )}
       </>
     );
   }
