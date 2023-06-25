@@ -93,7 +93,8 @@ class App extends Component {
   render() {
     const { data, isLoading, currentPage, totalPage } = this.state;
     console.log(data);
-    console.log(totalPage > currentPage);
+    console.log('totalPage', totalPage);
+    console.log('currentPage', currentPage);
 
     return (
       <>
