@@ -26,7 +26,10 @@ class App extends Component {
       });
     }
 
-    if (prevState.searchText !== searchText && currentPage === 1) {
+    if (
+      (prevState.searchText !== searchText && currentPage === 1) ||
+      (prevState.currentPage !== currentPage && currentPage === 1)
+    ) {
       this.setState({
         isLoading: true,
       });
