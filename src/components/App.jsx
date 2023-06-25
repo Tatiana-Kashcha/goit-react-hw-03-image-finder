@@ -22,8 +22,13 @@ class App extends Component {
 
     if (prevState.searchText !== searchText) {
       this.setState({
-        isLoading: true,
         currentPage: 1,
+      });
+    }
+
+    if (prevState.searchText !== searchText && currentPage === 1) {
+      this.setState({
+        isLoading: true,
       });
       this.getImages();
     }
@@ -105,9 +110,7 @@ class App extends Component {
 
   render() {
     const { data, isLoading, currentPage, totalPage } = this.state;
-    console.log(data);
-    console.log(currentPage);
-    console.log(totalPage);
+    console.log(this.state);
 
     return (
       <>
