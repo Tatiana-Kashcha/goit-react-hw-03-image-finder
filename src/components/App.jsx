@@ -12,65 +12,67 @@ class App extends Component {
     data: [],
     currentPage: 1,
     totalPage: 0,
-    // perPage: 0,
     error: null,
     isShowModal: false,
     isLoading: false,
   };
 
-  componentDidMount() {
-    this.setState({ isLoading: false });
-  }
+  async componentDidUpdate(_, prevState) {
+    const { searchText, currentPage } = this.state;
 
-  componentDidUpdate(_, prevState) {
-    if (
-      prevState.searchText !== this.state.searchText ||
-      prevState.currentPage !== this.state.currentPage
-    ) {
-      this.getImages();
+    if (prevState.searchText !== searchText && currentPage === 1) {
       this.setState({
         isLoading: true,
+        currentPage: 1,
       });
-    }
-  }
 
-  getImages = async () => {
-    const { searchText, currentPage } = this.state;
-    try {
-      const dataGallery = await getImagesApi(searchText, currentPage);
+      try {
+        const dataGallery = await getImagesApi(searchText, currentPage);
 
-      if (dataGallery.data.hits.length) {
-        Notify.success(`We found ${dataGallery.data.totalHits} images.`);
-      } else {
-        Notify.failure(
-          'Sorry, there are no images matching your search query. Please try again.'
-        );
+        if (dataGallery.data.hits.length) {
+          Notify.success(`We found ${dataGallery.data.totalHits} images.`);
+        } else {
+          Notify.failure(
+            'Sorry, there are no images matching your search query. Please try again.'
+          );
+        }
+
+        this.setState({
+          data: [...dataGallery.data.hits],
+        });
+
+        this.setState({
+          totalPage: Math.ceil(
+            dataGallery.data.totalHits / dataGallery.data.hits.length
+          ),
+        });
+      } catch (error) {
+        this.setState({ error });
+        console.log('ERROR', error);
+        Notify.failure('Oops, something went wrong! Try again later.');
+      } finally {
+        this.setState({ isLoading: false });
+        Loading.remove();
       }
+    }
 
-      this.setState({
-        totalPage: Math.ceil(
-          dataGallery.data.totalHits / dataGallery.data.hits.length
-        ),
-      });
+    if (prevState.currentPage !== currentPage && currentPage !== 1) {
+      try {
+        const dataGallery = await getImagesApi(searchText, currentPage);
 
-      if (currentPage > 1) {
         this.setState(prevState => ({
           data: [...prevState.data, ...dataGallery.data.hits],
         }));
-      } else {
-        this.setState({
-          data: dataGallery.data.hits,
-        });
+      } catch (error) {
+        this.setState({ error });
+        console.log('ERROR', error);
+        Notify.failure('Oops, something went wrong! Try again later.');
+      } finally {
+        this.setState({ isLoading: false });
+        Loading.remove();
       }
-    } catch (error) {
-      this.setState({ error });
-      console.log(error);
-      Notify.failure('Oops, something went wrong! Try again later.');
-    } finally {
-      this.setState({ isLoading: false });
-      Loading.remove();
     }
-  };
+  }
 
   handleSearch = searchText => {
     this.setState({ searchText });
@@ -93,8 +95,8 @@ class App extends Component {
   render() {
     const { data, isLoading, currentPage, totalPage } = this.state;
     console.log(data);
-    console.log('totalPage', totalPage);
-    console.log('currentPage', currentPage);
+    console.log(currentPage);
+    console.log(totalPage);
 
     return (
       <>
