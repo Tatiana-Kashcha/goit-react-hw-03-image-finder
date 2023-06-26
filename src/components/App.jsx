@@ -5,9 +5,8 @@ import Searchbar from 'components/Searchbar/Searchbar';
 import { ImageGallery } from 'components/ImageGallery/ImageGallery';
 import { getImagesApi } from 'api/getImagesApi';
 import { Button } from 'components/Button/Button';
-import { ReactComponent as IconClose } from 'components/icons/x-close.svg';
+
 import Modal from 'components/Modal/Modal';
-import * as s from './App.styled';
 
 class App extends Component {
   state = {
@@ -133,15 +132,7 @@ class App extends Component {
   };
 
   render() {
-    const {
-      data,
-      isLoading,
-      currentPage,
-      totalPage,
-      isShowModal,
-      currentImage,
-      tags,
-    } = this.state;
+    const { data, isLoading, currentPage, totalPage, isShowModal } = this.state;
     console.log(this.state);
 
     return (
@@ -151,15 +142,7 @@ class App extends Component {
         {isLoading && Loading.arrows()}
         <ImageGallery data={data} onClick={this.showModal} />
         {totalPage > currentPage && <Button onLoadMore={this.handleLoadMore} />}
-        {isShowModal && (
-          <Modal>
-            <s.CloseButton type="button" onClick={this.closeModal}>
-              <IconClose width="20" heigth="20" />
-              <s.ButtonLabel>Close</s.ButtonLabel>
-            </s.CloseButton>
-            <img src={currentImage} alt={tags} />
-          </Modal>
-        )}
+        {isShowModal && <Modal onClick={this.closeModal} />}
       </>
     );
   }
