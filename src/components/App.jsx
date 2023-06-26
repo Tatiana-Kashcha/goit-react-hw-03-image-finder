@@ -5,7 +5,9 @@ import Searchbar from 'components/Searchbar/Searchbar';
 import { ImageGallery } from 'components/ImageGallery/ImageGallery';
 import { getImagesApi } from 'api/getImagesApi';
 import { Button } from 'components/Button/Button';
-import { Modal } from 'components/Modal/Modal';
+import { ReactComponent as IconClose } from 'components/icons/x-close.svg';
+import Modal from 'components/Modal/Modal';
+import * as s from './App.styled';
 
 class App extends Component {
   state = {
@@ -17,6 +19,7 @@ class App extends Component {
     isShowModal: false,
     isLoading: false,
     currentImage: null,
+    tags: '',
   };
 
   componentDidUpdate(_, prevState) {
@@ -111,12 +114,22 @@ class App extends Component {
     }));
   };
 
-  showModal = currentImage => {
-    this.setState({ isShowModal: true, currentImage: currentImage });
+  // showModal = (currentImage, tags) => {
+  //   this.setState({
+  //     isShowModal: true,
+  //     currentImage: currentImage,
+  //     tags: tags,
+  //   });
+  // };
+
+  showModal = () => {
+    this.setState({
+      isShowModal: true,
+    });
   };
 
   closeModal = () => {
-    this.setState({ isShowModal: false, currentImage: null });
+    this.setState({ isShowModal: false });
   };
 
   render() {
@@ -127,17 +140,25 @@ class App extends Component {
       totalPage,
       isShowModal,
       currentImage,
+      tags,
     } = this.state;
     console.log(this.state);
 
     return (
       <>
+        <button onClick={this.showModal}>showModal</button>
         <Searchbar onSubmit={this.handleSearch} />
         {isLoading && Loading.arrows()}
-        <ImageGallery data={data} />
+        <ImageGallery data={data} onClick={this.showModal} />
         {totalPage > currentPage && <Button onLoadMore={this.handleLoadMore} />}
         {isShowModal && (
-          <Modal closeModal={this.closeModal} currentImage={currentImage} />
+          <Modal>
+            <s.CloseButton type="button" onClick={this.closeModal}>
+              <IconClose width="20" heigth="20" />
+              <s.ButtonLabel>Close</s.ButtonLabel>
+            </s.CloseButton>
+            <img src={currentImage} alt={tags} />
+          </Modal>
         )}
       </>
     );

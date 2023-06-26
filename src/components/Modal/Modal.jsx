@@ -1,16 +1,16 @@
-import { ReactComponent as IconClose } from '../icons/x-close.svg';
+import { Component } from 'react';
 import * as s from './Modal.styled';
 
-export const Modal = ({ closeModal, largeImageURL, tags }) => {
-  return (
-    <s.Overlay>
-      <s.Modal>
-        <button type="button" onClick={closeModal}>
-          <IconClose width="20" heigth="20" />
-          <s.ButtonLabel>Close</s.ButtonLabel>
-        </button>
-        <img src={largeImageURL} alt={tags} />
-      </s.Modal>
-    </s.Overlay>
-  );
-};
+export default class Modal extends Component {
+  componentDidMount() {}
+
+  componentDidUpdate() {}
+
+  render() {
+    return (
+      <s.Overlay>
+        <s.Modal>{this.props.children}</s.Modal>
+      </s.Overlay>
+    );
+  }
+}
