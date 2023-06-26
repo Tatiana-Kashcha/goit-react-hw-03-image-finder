@@ -7,7 +7,7 @@ import { getImagesApi } from 'api/getImagesApi';
 import { Button } from 'components/Button/Button';
 import Modal from 'components/Modal/Modal';
 
-class App extends Component {
+export default class App extends Component {
   state = {
     searchText: '',
     data: [],
@@ -137,7 +137,7 @@ class App extends Component {
       currentImage,
       tags,
     } = this.state;
-    console.log(this.state);
+    console.log(this.state); //для контроля
 
     return (
       <>
@@ -156,5 +156,3 @@ class App extends Component {
     );
   }
 }
-
-export default App;
