@@ -4,18 +4,14 @@ import * as s from './ImageGallery.styled';
 export const ImageGallery = ({ data, showModal }) => {
   return (
     <s.List>
-      {data.map(gallery => (
+      {data.map(({ id, largeImageURL, tags, webformatURL }) => (
         <s.ListItems
-          key={gallery.id}
+          key={id}
           onClick={() => {
-            showModal(gallery.largeImageURL, gallery.tags);
+            showModal(largeImageURL, tags);
           }}
-          // key={gallery.id}
-          // onClick={() => {
-          //   showModal(gallery.largeImageURL, gallery.tags);
-          // }}
         >
-          <ImageGalleryItem gallery={gallery} />
+          <ImageGalleryItem webformatURL={webformatURL} tags={tags} />
         </s.ListItems>
       ))}
     </s.List>
