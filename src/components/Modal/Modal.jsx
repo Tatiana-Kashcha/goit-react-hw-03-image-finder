@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import { ReactComponent as IconClose } from '../icons/x-close.svg';
 import * as s from './Modal.styled';
+import PropTypes from 'prop-types';
 
 export default class Modal extends Component {
   componentDidMount() {
@@ -37,3 +38,9 @@ export default class Modal extends Component {
     );
   }
 }
+
+Modal.propTypes = {
+  currentImage: PropTypes.string.isRequired,
+  tags: PropTypes.string,
+  closeModal: PropTypes.func.isRequired,
+};

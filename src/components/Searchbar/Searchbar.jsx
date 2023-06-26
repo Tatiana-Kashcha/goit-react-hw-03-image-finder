@@ -2,8 +2,9 @@ import { Component } from 'react';
 import * as s from './Searchbar.styled';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { ReactComponent as IconSearch } from '../icons/dandruff.svg';
+import PropTypes from 'prop-types';
 
-class Searchbar extends Component {
+export default class Searchbar extends Component {
   state = {
     value: '',
   };
@@ -49,4 +50,6 @@ class Searchbar extends Component {
   }
 }
 
-export default Searchbar;
+Searchbar.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+};
