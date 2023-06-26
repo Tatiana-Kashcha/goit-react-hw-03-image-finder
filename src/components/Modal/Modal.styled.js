@@ -27,11 +27,12 @@ export const CloseButton = styled.button`
   display: inline-block;
   justify-content: center;
   text-align: center;
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
+  padding: 0;
   cursor: pointer;
   outline: none;
-  fill: #ffffff;
+  background-color: #cfcfcf;
 `;
 
 export const ButtonLabel = styled.span`

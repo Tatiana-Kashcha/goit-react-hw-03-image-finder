@@ -8,15 +8,14 @@ export const ImageGallery = ({ data, showModal }) => {
         <s.ListItems
           key={gallery.id}
           onClick={() => {
-            showModal();
+            showModal(gallery.largeImageURL, gallery.tags);
           }}
+          // key={gallery.id}
+          // onClick={() => {
+          //   showModal(gallery.largeImageURL, gallery.tags);
+          // }}
         >
-          <ImageGalleryItem
-            gallery={gallery}
-            // onClick={() => {
-            //   showModal(gallery.largeImageURL, gallery.tags);
-            // }}
-          />
+          <ImageGalleryItem gallery={gallery} />
         </s.ListItems>
       ))}
     </s.List>

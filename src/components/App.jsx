@@ -6,7 +6,8 @@ import { ImageGallery } from 'components/ImageGallery/ImageGallery';
 import { getImagesApi } from 'api/getImagesApi';
 import { Button } from 'components/Button/Button';
 
-import Modal from 'components/Modal/Modal';
+// import Modal from 'components/Modal/Modal';
+import { Modal } from 'components/Modal/Modal';
 
 class App extends Component {
   state = {
@@ -113,17 +114,11 @@ class App extends Component {
     }));
   };
 
-  // showModal = (currentImage, tags) => {
-  //   this.setState({
-  //     isShowModal: true,
-  //     currentImage: currentImage,
-  //     tags: tags,
-  //   });
-  // };
-
-  showModal = () => {
+  showModal = (currentImage, tags) => {
     this.setState({
       isShowModal: true,
+      currentImage: currentImage,
+      tags: tags,
     });
   };
 
@@ -132,17 +127,30 @@ class App extends Component {
   };
 
   render() {
-    const { data, isLoading, currentPage, totalPage, isShowModal } = this.state;
+    const {
+      data,
+      isLoading,
+      currentPage,
+      totalPage,
+      isShowModal,
+      currentImage,
+      tags,
+    } = this.state;
     console.log(this.state);
 
     return (
       <>
-        <button onClick={this.showModal}>showModal</button>
         <Searchbar onSubmit={this.handleSearch} />
         {isLoading && Loading.arrows()}
-        <ImageGallery data={data} onClick={this.showModal} />
+        <ImageGallery data={data} showModal={this.showModal} />
         {totalPage > currentPage && <Button onLoadMore={this.handleLoadMore} />}
-        {isShowModal && <Modal onClick={this.closeModal} />}
+        {isShowModal && (
+          <Modal
+            currentImage={currentImage}
+            tags={tags}
+            closeModal={this.closeModal}
+          />
+        )}
       </>
     );
   }
