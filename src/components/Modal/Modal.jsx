@@ -3,13 +3,29 @@ import { ReactComponent as IconClose } from '../icons/x-close.svg';
 import * as s from './Modal.styled';
 
 export default class Modal extends Component {
-  componentDidMount() {}
+  componentDidMount() {
+    window.addEventListener('keydown', this.handleKeyDown);
+  }
 
-  componentDidUpdate() {}
+  componentDidUpdate() {
+    window.removeEventListener('keydown', this.handleKeyDown);
+  }
+
+  handleKeyDown = e => {
+    if (e.code === 'Escape') {
+      this.props.closeModal();
+    }
+  };
+
+  handleBackdropClick = evt => {
+    if (evt.currentTarget === evt.target) {
+      this.props.closeModal();
+    }
+  };
 
   render() {
     return (
-      <s.Overlay>
+      <s.Overlay onClick={this.handleBackdropClick}>
         <s.Modal>
           <s.CloseButton type="button" onClick={this.props.closeModal}>
             <IconClose width="30" heigth="30" />

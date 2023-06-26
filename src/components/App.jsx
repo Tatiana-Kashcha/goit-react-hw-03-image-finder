@@ -48,7 +48,7 @@ class App extends Component {
   }
 
   /**
-   * Виконується запит по першій сторінці = (currentPage: 1)
+   * Виконується запит по першій сторінці (currentPage: 1)
    */
   getImages = async () => {
     const { searchText, currentPage } = this.state;
@@ -84,7 +84,7 @@ class App extends Component {
   };
 
   /**
-   * Виконується запит по сторінкам пагінації = (prevState.currentPage + 1)
+   * Виконується запит по сторінкам пагінації (prevState.currentPage + 1)
    */
   getImagesLoadMore = async () => {
     const { searchText, currentPage } = this.state;
