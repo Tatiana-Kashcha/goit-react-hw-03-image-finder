@@ -1,7 +1,7 @@
 import { ReactComponent as IconClose } from '../icons/x-close.svg';
 import * as s from './Modal.styled';
 
-export const Modal = ({ closeModal, largeImageURL }) => {
+export const Modal = ({ closeModal, largeImageURL, tags }) => {
   return (
     <s.Overlay>
       <s.Modal>

@@ -5,6 +5,7 @@ import Searchbar from 'components/Searchbar/Searchbar';
 import { ImageGallery } from 'components/ImageGallery/ImageGallery';
 import { getImagesApi } from 'api/getImagesApi';
 import { Button } from 'components/Button/Button';
+import { Modal } from 'components/Modal/Modal';
 
 class App extends Component {
   state = {
@@ -15,6 +16,7 @@ class App extends Component {
     error: null,
     isShowModal: false,
     isLoading: false,
+    currentImage: null,
   };
 
   componentDidUpdate(_, prevState) {
@@ -109,16 +111,23 @@ class App extends Component {
     }));
   };
 
-  showModal = () => {
-    this.setState({ isShowModal: true });
+  showModal = currentImage => {
+    this.setState({ isShowModal: true, currentImage: currentImage });
   };
 
   closeModal = () => {
-    this.setState({ isShowModal: false });
+    this.setState({ isShowModal: false, currentImage: null });
   };
 
   render() {
-    const { data, isLoading, currentPage, totalPage, isShowModal } = this.state;
+    const {
+      data,
+      isLoading,
+      currentPage,
+      totalPage,
+      isShowModal,
+      currentImage,
+    } = this.state;
     console.log(this.state);
 
     return (
@@ -128,7 +137,7 @@ class App extends Component {
         <ImageGallery data={data} />
         {totalPage > currentPage && <Button onLoadMore={this.handleLoadMore} />}
         {isShowModal && (
-          <Modal closeModal={this.closeModal} currentImage={largeImageURL} />
+          <Modal closeModal={this.closeModal} currentImage={currentImage} />
         )}
       </>
     );
