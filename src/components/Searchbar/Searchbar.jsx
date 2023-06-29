@@ -18,7 +18,7 @@ export default class Searchbar extends Component {
     const { value } = this.state;
 
     if (value.trim() === '') {
-      Notify.failure('Search images and photos!');
+      Notify.failure('Enter text to search for images and photos!');
       return;
     }
 
