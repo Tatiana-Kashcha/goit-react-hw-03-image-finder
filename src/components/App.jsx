@@ -41,10 +41,9 @@ export default class App extends Component {
       const dataGallery = await getImagesApi(searchText, currentPage);
 
       if (dataGallery.data.hits.length && currentPage === 1) {
-        this.setState(prevState => ({
-          data: [...prevState.data, ...dataGallery.data.hits],
+        this.setState({
           totalPage: Math.ceil(dataGallery.data.totalHits / PER_PAGE),
-        }));
+        });
         Notify.success(`We found ${dataGallery.data.totalHits} images.`);
       }
 
@@ -53,6 +52,9 @@ export default class App extends Component {
           'Sorry, there are no images matching your search query. Please try again.'
         );
       }
+      this.setState(prevState => ({
+        data: [...prevState.data, ...dataGallery.data.hits],
+      }));
     } catch (error) {
       this.setState({ error });
       console.log('ERROR', error);
