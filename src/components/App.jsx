@@ -12,7 +12,7 @@ export default class App extends Component {
     searchText: '',
     data: [],
     currentPage: 1,
-    totalPage: null,
+    totalPage: 0,
     error: null,
     isShowModal: false,
     isLoading: false,
@@ -41,9 +41,6 @@ export default class App extends Component {
       const dataGallery = await getImagesApi(searchText, currentPage);
 
       if (dataGallery.data.hits.length && currentPage === 1) {
-        this.setState({
-          totalPage: Math.ceil(dataGallery.data.totalHits / PER_PAGE),
-        });
         Notify.success(`We found ${dataGallery.data.totalHits} images.`);
       }
 
@@ -54,6 +51,7 @@ export default class App extends Component {
       }
       this.setState(prevState => ({
         data: [...prevState.data, ...dataGallery.data.hits],
+        totalPage: Math.ceil(dataGallery.data.totalHits / PER_PAGE),
       }));
     } catch (error) {
       this.setState({ error });
@@ -103,7 +101,9 @@ export default class App extends Component {
       <>
         <Searchbar onSubmit={this.handleSearch} />
         {isLoading && Loading.arrows()}
-        {totalPage && <ImageGallery data={data} showModal={this.showModal} />}
+        {totalPage > 0 && (
+          <ImageGallery data={data} showModal={this.showModal} />
+        )}
         {totalPage > currentPage && !isLoading && (
           <Button onLoadMore={this.handleLoadMore} />
         )}
